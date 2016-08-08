@@ -1,0 +1,22 @@
+{
+  "name": "discovery-network",
+  "version": "0.0.0",
+  "description": "Create servers/clients that listen on names instead of ports and hostnames and are accessible over the internet",
+  "main": "index.js",
+  "dependencies": {
+    "discovery-channel": "^5.3.0",
+    "duplexify": "^3.4.5",
+    "inherits": "^2.0.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/discovery-network.git"
+  },
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/discovery-network/issues"
+  },
+  "homepage": "https://github.com/mafintosh/discovery-network"
+}
