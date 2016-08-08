@@ -1,10 +1,10 @@
-# discovery-network
+# peer-network
 
 Create servers/clients that listen on names instead of ports and hostnames and are accessible over the internet.
 Uses [discovery-channel](https://github.com/maxogden/discovery-channel) to discover peers.
 
 ```
-npm install discovery-network
+npm install peer-network
 ```
 
 ## Usage
@@ -12,8 +12,8 @@ npm install discovery-network
 First create a server
 
 ``` js
-var discovery = require('discovery-network')
-var network = discovery()
+var peernet = require('peer-network')
+var network = peernet()
 
 var server = network.createServer()
 
@@ -39,7 +39,7 @@ stream.on('data', function (data) {
 
 ## API
 
-#### `var network = discovery(opts)`
+#### `var network = peernet(opts)`
 
 Create a new network instance. Options are forwarded to [discovery-channel](https://github.com/maxogden/discovery-channel).
 

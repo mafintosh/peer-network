@@ -1,5 +1,5 @@
 {
-  "name": "discovery-network",
+  "name": "peer-network",
   "version": "1.0.0",
   "description": "Create servers/clients that listen on names instead of ports and hostnames and are accessible over the internet",
   "main": "index.js",
@@ -11,12 +11,12 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/mafintosh/discovery-network.git"
+    "url": "https://github.com/mafintosh/peer-network.git"
   },
   "author": "Mathias Buus (@mafintosh)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mafintosh/discovery-network/issues"
+    "url": "https://github.com/mafintosh/peer-network/issues"
   },
-  "homepage": "https://github.com/mafintosh/discovery-network"
+  "homepage": "https://github.com/mafintosh/peer-network"
 }
