@@ -61,6 +61,7 @@ function Swarm (name) {
 }
 
 Swarm.prototype.connect = function () {
+  var self = this
   var stream = duplexify()
 
   stream.connecting = false
