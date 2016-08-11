@@ -34,8 +34,8 @@ Network.prototype.connect = function (name) {
   return swarm.connect(name)
 }
 
-Network.prototype.destroy = function () {
-
+Network.prototype.destroy = function (cb) {
+  this.discovery.destroy(cb)
 }
 
 function getSwarm (self, name) {
@@ -165,9 +165,14 @@ function Server (network) {
   this.tcp.on('connection', onconnection)
   this.tcp.on('listening', onlistening)
   this.tcp.on('error', onerror)
+  this.tcp.on('close', onclose)
 
   this.network = network
   this.name = null
+
+  function onclose () {
+    self.emit('close')
+  }
 
   function onerror (err) {
     self.emit('error', err)
@@ -189,6 +194,12 @@ inherits(Server, events.EventEmitter)
 
 Server.prototype.address = function () {
   return this.tcp.address()
+}
+
+Server.prototype.close = function (onclose) {
+  if (onclose) this.once('close', onclose)
+  this.network.discovery.leave(this.name, this.address().port)
+  this.tcp.close()
 }
 
 Server.prototype.listen = function (name, port, onlistening) {

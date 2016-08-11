@@ -43,6 +43,10 @@ stream.on('data', function (data) {
 
 Create a new network instance. Options are forwarded to [discovery-channel](https://github.com/maxogden/discovery-channel).
 
+#### `network.destroy([callback])`
+
+Destroy the network instance. Will stop annoucing all servers.
+
 #### `var server = network.createServer([onconnection])`
 
 Create a new server.
@@ -52,13 +56,17 @@ Create a new server.
 Listen on a name. Can be any buffer/string. Optionally you can specify a port to bound to as well. If not specified a random open port will be used.
 The server will use discovery-channel to announce itself to other peers using multicast-dns, the bittorrent dht and potentially a series of dns servers.
 
-#### `server.on('connection', stream)`
+#### `server.close([onclose])`
 
-Emitted when a client connects
+Close the server and stop announcing its pressence
 
 #### `server.address()`
 
 Similar to https://nodejs.org/api/net.html#net_server_address.
+
+#### `server.on('connection', stream)`
+
+Emitted when a client connects
 
 #### `server.on('listening')`
 
@@ -67,6 +75,10 @@ Emitted when the server is listening.
 #### `server.on('error', err)`
 
 Emitted if the server has a critical error.
+
+#### `server.on('close')`
+
+Emitted when the server is fully close
 
 #### `var stream = network.connect(name)`
 
