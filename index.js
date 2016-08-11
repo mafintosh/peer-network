@@ -72,13 +72,12 @@ Swarm.prototype.connect = function () {
   stream.on('close', onclose)
 
   this._tryConnect(stream)
+  return stream
 
   function onclose () {
     var i = self.connections.indexOf(stream)
     if (i > -1) self.connections.splice(stream, 1)
   }
-
-  return stream
 }
 
 Swarm.prototype.add = function (peer) {
