@@ -11,17 +11,17 @@ if (process.argv[2] === 'connect') {
     console.log('data:', data.toString())
     client.destroy()
   })
-  return
+} else {
+  var server = network.createServer()
+
+  server.on('connection', function (connection) {
+    console.log('[new connection]')
+    connection.pipe(connection)
+    connection.on('close', function () {
+      console.log('[connected closed]')
+    })
+  })
+
+  server.listen('example-server', 12345)
 }
 
-var server = network.createServer()
-
-server.on('connection', function (connection) {
-  console.log('[new connection]')
-  connection.pipe(connection)
-  connection.on('close', function () {
-    console.log('[connected closed]')
-  })
-})
-
-server.listen('example-server', 12345)

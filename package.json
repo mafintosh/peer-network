@@ -8,7 +8,12 @@
     "duplexify": "^3.4.5",
     "inherits": "^2.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "standard": "^7.1.2"
+  },
+  "scripts": {
+    "test": "standard"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mafintosh/peer-network.git"
