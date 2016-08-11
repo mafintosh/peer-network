@@ -86,6 +86,10 @@ Emitted when the server is fully close
 
 Connect to a server listening on a name. If multiple servers are listening it will connect to the first one to which an connection can be established.
 
+#### `stream.on('connect')`
+
+Emitted when the stream is fully connected to another peer. You do not need to wait for this event before writing data to the socket.
+
 ## License
 
 MIT
