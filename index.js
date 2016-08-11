@@ -3,6 +3,7 @@ var discovery = require('discovery-channel')
 var inherits = require('inherits')
 var events = require('events')
 var duplexify = require('duplexify')
+var toPort = require('hash-to-port')
 
 module.exports = Network
 
@@ -162,8 +163,6 @@ function Server (network) {
 
   this.tcp = net.createServer()
   this.tcp.on('connection', onconnection)
-  this.tcp.on('listening', onlistening)
-  this.tcp.on('error', onerror)
   this.tcp.on('close', onclose)
 
   this.network = network
@@ -171,17 +170,6 @@ function Server (network) {
 
   function onclose () {
     self.emit('close')
-  }
-
-  function onerror (err) {
-    self.emit('error', err)
-  }
-
-  function onlistening () {
-    var key = self.name.toString('hex')
-    self.network._lookup[key] = (self.network._lookup[key] || 0) + 1
-    self.network.discovery.join(self.name, self.address().port)
-    self.emit('listening')
   }
 
   function onconnection (socket) {
@@ -195,16 +183,46 @@ Server.prototype.address = function () {
   return this.tcp.address()
 }
 
-Server.prototype.close = function (onclose) {
-  if (onclose) this.once('close', onclose)
+Server.prototype.close = function (cb) {
+  if (cb) this.once('close', cb)
   this.network.discovery.leave(this.name, this.address().port)
   this.tcp.close()
 }
 
-Server.prototype.listen = function (name, port, onlistening) {
+Server.prototype.listen = function (name, port, cb) {
   if (typeof port === 'function') return this.listen(name, 0, port)
-  if (onlistening) this.once('listening', onlistening)
+  if (typeof name === 'string') name = Buffer(name)
+  if (cb) this.once('listening', cb)
+  if (!port) port = 0
+
+  var self = this
 
   this.name = name
-  this.tcp.listen(port || 0)
+
+  if (port) {
+    this.tcp.on('error', onerror)
+    this.tcp.listen(port)
+  } else {
+    this.tcp.once('listening', onlistening)
+    this.tcp.once('error', onlisteningerror)
+    this.tcp.listen(toPort(name))
+  }
+
+  function onerror (err) {
+    self.emit('error', err)
+  }
+
+  function onlisteningerror () {
+    self.tcp.removeListener('listening', onlistening)
+    self.tcp.listen(0)
+  }
+
+  function onlistening () {
+    var key = self.name.toString('hex')
+    self.tcp.removeListener('error', onlisteningerror)
+    self.tcp.on('error', onerror)
+    self.network._lookup[key] = (self.network._lookup[key] || 0) + 1
+    self.network.discovery.join(self.name, self.address().port)
+    self.emit('listening')
+  }
 }

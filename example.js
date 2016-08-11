@@ -22,6 +22,5 @@ if (process.argv[2] === 'connect') {
     })
   })
 
-  server.listen('example-server', 12345)
+  server.listen('example-server')
 }
-

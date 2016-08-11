@@ -6,6 +6,7 @@
   "dependencies": {
     "discovery-channel": "^5.3.0",
     "duplexify": "^3.4.5",
+    "hash-to-port": "^1.0.0",
     "inherits": "^2.0.1"
   },
   "devDependencies": {
