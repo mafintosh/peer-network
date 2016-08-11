@@ -7,6 +7,8 @@ Uses [discovery-channel](https://github.com/maxogden/discovery-channel) to disco
 npm install peer-network
 ```
 
+[![build status](http://img.shields.io/travis/mafintosh/peer-network.svg?style=flat)](http://travis-ci.org/mafintosh/peer-network)
+
 ## Usage
 
 First create a server
