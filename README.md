@@ -1,7 +1,9 @@
 # peer-network
 
 Create servers/clients that listen on names instead of ports and hostnames and are accessible over the internet.
-Uses [discovery-channel](https://github.com/maxogden/discovery-channel) to discover peers.
+Uses [hyperdht](https://github.com/mafintosh/hyperdht) to discover peers and holepunch connections to them.
+
+Per default it uses `bootstrap1.hyperdht.org` to bootstrap the DHT but you can configure your own.
 
 ```
 npm install peer-network
@@ -43,17 +45,14 @@ stream.on('data', function (data) {
 
 #### `var network = peernet(opts)`
 
-Create a new network instance. Options are forwarded to [discovery-channel](https://github.com/maxogden/discovery-channel).
-
-#### `network.destroy([callback])`
-
-Destroy the network instance. Will stop annoucing all servers.
+Create a new network instance. Options are forwarded to the [hyperdht](https://github.com/mafintosh/hyperdht) constructor.
+If you do not provide a bootstrap list, `bootstrap1.hyperdht.org` is used.
 
 #### `var server = network.createServer([onconnection])`
 
 Create a new server.
 
-#### `server.listen(name, [port], [onlistening])`
+#### `server.listen(name, [onlistening])`
 
 Listen on a name. Can be any buffer/string. Optionally you can specify a port to bound to as well. If not specified a random open port will be used.
 The server will use discovery-channel to announce itself to other peers using multicast-dns, the bittorrent dht and potentially a series of dns servers.
@@ -61,10 +60,6 @@ The server will use discovery-channel to announce itself to other peers using mu
 #### `server.close([onclose])`
 
 Close the server and stop announcing its pressence
-
-#### `server.address()`
-
-Similar to https://nodejs.org/api/net.html#net_server_address.
 
 #### `server.on('connection', stream)`
 
