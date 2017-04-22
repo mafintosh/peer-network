@@ -1,6 +1,6 @@
 {
   "name": "peer-network",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Create servers/clients that listen on names instead of ports and hostnames and are accessible over the internet",
   "main": "index.js",
   "dependencies": {
