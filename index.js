@@ -6,6 +6,8 @@ var addr = require('network-address')
 var duplexify = require('duplexify')
 var utp = require('utp-native')
 
+module.exports = Network
+
 function Network (opts) {
   if (!(this instanceof Network)) return new Network(opts)
   if (!opts) opts = {}
