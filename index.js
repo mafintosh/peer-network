@@ -59,7 +59,7 @@ Network.prototype.connect = function (name) {
           tryConnect(peer, next.node, function (err) {
             if (err) return loop()
 
-            var socket = utp.connect(peer.port, peer.host)
+            var socket = self.socket.connect(peer.port, peer.host)
             stream.setReadable(socket)
             stream.setWritable(socket)
             stream.emit('connect')
